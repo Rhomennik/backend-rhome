@@ -9,6 +9,7 @@ var app = express();
 var Usuario = require('../models/usuario');
 var Medico = require('../models/medico');
 var Hospital = require('../models/hospital');
+var maquinas = require('../models/maquinas2');
 
 
 // default options
@@ -23,7 +24,7 @@ app.put('/:tipo/:id', (req, res, next) => {
     var id = req.params.id;
 
     // tipos de colección
-    var tiposValidos = ['hospitales', 'medicos', 'usuarios'];
+    var tiposValidos = ['hospitales', 'medicos', 'usuarios', 'maquinas'];
     if (tiposValidos.indexOf(tipo) < 0) {
         return res.status(400).json({
             ok: false,
@@ -47,7 +48,7 @@ app.put('/:tipo/:id', (req, res, next) => {
     var extensionArchivo = nombreCortado[nombreCortado.length - 1];
 
     // Sólo estas extensiones aceptamos
-    var extensionesValidas = ['png', 'jpg', 'gif', 'jpeg'];
+    var extensionesValidas = ['png', 'jpg', 'gif', 'jpeg', 'PNG', 'JPG', 'GIF', 'JPEG'];
 
     if (extensionesValidas.indexOf(extensionArchivo) < 0) {
         return res.status(400).json({
@@ -112,7 +113,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
 
             // Si existe, elimina la imagen anterior
             if (fs.existsSync(pathViejo)) {
-                fs.unlink(pathViejo);
+                fs.unlinkSync(pathViejo);
             }
 
             usuario.img = nombreArchivo;
@@ -133,7 +134,49 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
         });
 
     }
+// ========================================
+    // linux ScreenSHot
 
+    if (tipo === 'maquinas') {
+
+        maquinas.findById(id, (err, maquina) => {
+
+            if (!maquina) {
+                return res.status(400).json({
+                    ok: true,
+                    mensaje: 'Usuario no existe',
+                    errors: { message: 'Usuario no existe' }
+                });
+            }
+
+            var pathViejo = './uploads/maquinas/' + maquina.img;
+
+            // Si existe, elimina la imagen anterior
+            if (fs.existsSync(pathViejo)) {
+                fs.unlinkSync(pathViejo);
+            }
+
+            maquina.img = nombreArchivo;
+
+            maquina.save((err, maquinaActualizado) => {
+
+                maquinaActualizado.password = ':)';
+
+                return res.status(200).json({
+                    ok: true,
+                    mensaje: 'Imagen de maquina actualizada',
+                    maquina: maquinaActualizado
+                });
+
+            })
+
+
+        });
+
+    }
+// fim do linux
+
+//====================================
     if (tipo === 'medicos') {
 
         Medico.findById(id, (err, medico) => {
@@ -150,7 +193,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
 
             // Si existe, elimina la imagen anterior
             if (fs.existsSync(pathViejo)) {
-                fs.unlink(pathViejo);
+                fs.unlinkSync(pathViejo);
             }
 
             medico.img = nombreArchivo;
@@ -160,7 +203,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 return res.status(200).json({
                     ok: true,
                     mensaje: 'Imagen de médico actualizada',
-                    usuario: medicoActualizado
+                    medico: medicoActualizado
                 });
 
             })
@@ -184,7 +227,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
 
             // Si existe, elimina la imagen anterior
             if (fs.existsSync(pathViejo)) {
-                fs.unlink(pathViejo);
+                fs.unlinkSync(pathViejo);
             }
 
             hospital.img = nombreArchivo;
@@ -194,7 +237,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
                 return res.status(200).json({
                     ok: true,
                     mensaje: 'Imagen de hospital actualizada',
-                    usuario: hospitalActualizado
+                    hospital: hospitalActualizado
                 });
 
             })

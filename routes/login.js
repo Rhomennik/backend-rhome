@@ -33,7 +33,7 @@ async function verify(token) {
     return {
         nombre: payload.name,
         email: payload.email,
-        img: payload.img,
+        img: payload.picture,
         google: true
     }
 }
@@ -92,7 +92,7 @@ app.post('/google', async(req, res) => {
             usuario.google = true;
             usuario.password = ':)';
 
-            usuario.save((err, usuarioDB) => {
+            usuario.save((_err, usuarioDB) => {
 
                 var token = jwt.sign({ usuario: usuarioDB }, SEED, { expiresIn: 14400 }); // 4 horas
 
