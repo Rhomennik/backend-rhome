@@ -33,7 +33,7 @@ maquinasCtrl.editMaquinas = async (req, res, next) => {
         name: req.body.name,
         position: req.body.position,
         office: req.body.office,
-        salary: req.body.salary
+        salayy: req.body.salary
     };
     await Maquinas.findByIdAndUpdate(id, {$set: maquinas}, {new: true});
     res.json({status: 'Employee Updated'});

@@ -91,6 +91,7 @@
  
      var id = req.params.id;
      var body = req.body;
+     var date = Date.now;
  
      Maquinas.findById(id, (err, maquinas) => {
  
@@ -116,7 +117,9 @@
          maquinas.iplocal = body.iplocal;
          maquinas.ippublico = body.ippublico;
          maquinas.mac = body.mac;
- 
+         maquinas.updatedAt = body.date;
+         
+         
          maquinas.save((err, maquinasGuardado) => {
  
              if (err) {
