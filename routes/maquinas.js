@@ -15,7 +15,7 @@
      var desde = req.query.desde || 0;   
      desde = Number(desde);
  
-     Maquinas.find({}, 'iplocal ippublico uptime mac img')
+     Maquinas.find({}, 'iplocal ippublico uptime   updateAt')
          .exec(
              (err, maquinas) => {
  
@@ -88,11 +88,10 @@
  // Actualizar maquinas
  // ==========================================
  app.put('/:id',(req, res) => {
- 
      var id = req.params.id;
      var body = req.body;
-     var date = Date.now;
- 
+
+     
      Maquinas.findById(id, (err, maquinas) => {
  
  
@@ -117,7 +116,7 @@
          maquinas.iplocal = body.iplocal;
          maquinas.ippublico = body.ippublico;
          maquinas.mac = body.mac;
-         maquinas.updatedAt = body.date;
+        maquinas.updatedAt = new Date;
          
          
          maquinas.save((err, maquinasGuardado) => {
@@ -129,8 +128,7 @@
                      errors: err
                  });
              }
- 
-             maquinasGuardado.password = ':)';
+
  
              res.status(200).json({
                  ok: true,
@@ -156,7 +154,8 @@
          ippublico: body.ippublico,
          uptime: body.uptime,
          mac: body.mac,
-         img: body.img
+         img: body.img,
+         updatedAt: body.updatedAt
       //   img: body.img,
       //   role: body.role
      });

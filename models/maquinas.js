@@ -8,7 +8,7 @@ const maquinasSchema = new Schema({
     uptime: { type: String},
     mac: { type: String, unique: true},
     img: { type: String, required: false, default:'' },
-    updatedAt: {type: Date, default: Date.time .now},
+    updatedAt: {type: Date, default: Date.time}
 
 
 });

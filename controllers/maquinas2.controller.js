@@ -29,12 +29,16 @@ maquinasCtrl.gettMaquinas = async (req, res, next) => {
 // atualizar Maquina
 maquinasCtrl.editMaquinas = async (req, res, next) => {
     const { id } = req.params;
+    const date = new Date.now();
     const maquinas = {
-        name: req.body.name,
-        position: req.body.position,
-        office: req.body.office,
-        salayy: req.body.salary
+        iplocal: req.body.iplocal,
+        ippublico: req.body.ippublico,
+        uptime: req.body.uptime,
+        mac: req.body.mac,
+        img: req.body.img,
+        ultimo: req.body.date
     };
+   // db.collection.update({ "$currentDate": { "updatedAt": { "$type": date }}})
     await Maquinas.findByIdAndUpdate(id, {$set: maquinas}, {new: true});
     res.json({status: 'Employee Updated'});
 };
