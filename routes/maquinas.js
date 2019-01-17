@@ -5,7 +5,8 @@
  var app = express();
  
  var Maquinas = require('../models/maquinas2');
- 
+// Date atual
+ var date = require('date-and-time');
  
  // ==========================================
  // Obtener todos los maquinas
@@ -90,6 +91,8 @@
  app.put('/:id',(req, res) => {
      var id = req.params.id;
      var body = req.body;
+  // Date atual
+  let now = new Date();
 
      
      Maquinas.findById(id, (err, maquinas) => {
@@ -116,7 +119,7 @@
          maquinas.iplocal = body.iplocal;
          maquinas.ippublico = body.ippublico;
          maquinas.mac = body.mac;
-        maquinas.updatedAt = new Date;
+        maquinas.updatedAt = date.format(now, 'Hmm');
          
          
          maquinas.save((err, maquinasGuardado) => {
