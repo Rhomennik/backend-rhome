@@ -12,6 +12,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "date-and-time": "^0.6.3",
     "express": "^4.16.2",
     "express-fileupload": "^0.3.0",
     "file-system": "^2.2.2",
