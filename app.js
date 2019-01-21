@@ -12,8 +12,8 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
     next();
-  });
-  
+});
+
 
 
 // Body Parser
@@ -32,8 +32,8 @@ var medicoRoutes = require('./routes/medico');
 var busquedaRoutes = require('./routes/busqueda');
 var uploadRoutes = require('./routes/upload');
 var imagenesRoutes = require('./routes/imagenes');
-var employeesRoutes = require('./routes/employee');
 var maquinas2Routes = require('./routes/maquinas2');
+var employeeRoutes = require('./routes/employee');
 
 
 
@@ -56,7 +56,7 @@ mongoose.connection.openUri('mongodb://localhost:11/hospitalDB', (err, res) => {
 
 // Rutasa
 app.use('/usuario', usuarioRoutes);
-app.use('/api/employees', employeesRoutes);
+app.use('/api/employee', employeeRoutes);
 app.use('/maquinas', maquinasRoutes);
 app.use('/maquinas2', maquinas2Routes);
 app.use('/hospital', hospitalRoutes);

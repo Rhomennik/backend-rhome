@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+var date = require('date-and-time');
+let now = new Date();
 const maquinas2Schema = new Schema({
-    iplocal: { type: String},
-    ippublico: { type: String},
-    uptime: { type: String},
+    iplocal: { type: String },
+    ippublico: { type: String },
+    uptime: { type: String },
     mac: { type: String, unique: true },
-    img: { type: String, required: false, default:'' },
-    updatedAt: {type: Date, default: new Date(Date.now()).toISOString()}
- //   ultimo: {type: Date, default: Date.()}
+    img: { type: String, required: false, default: '' },
+    updatedAt: { type: String, default: date.format(now, 'Hmm') }
+    //   ultimo: {type: Date, default: Date.()}
 
 
 });

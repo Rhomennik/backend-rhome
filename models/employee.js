@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const employeeSchema = new Schema({
-    name: { type: String, required: true},
-    position: { type: String, required: true },
-    office: { type: String, required: true },
-    salary: { type: Number, required: true}
+    codigo: { type: String },
+    cliente: { type: String },
+    fecha: { type: String },
+    perfil: { type: Number },
+    contador: { type: Number }
 });
 
 module.exports = mongoose.model('Employee', employeeSchema);
