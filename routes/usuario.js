@@ -107,7 +107,7 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
 // ==========================================
 // Crear un nuevo usuario
 // ==========================================
-app.post('/',(req, res) => {
+app.post('/', (req, res) => {
 
     var body = req.body;
 
@@ -115,7 +115,7 @@ app.post('/',(req, res) => {
         nombre: body.nombre,
         email: body.email,
         password: bcrypt.hashSync(body.password, 10),
-        img: body.img,
+        img: 1,
         google: body.google,
         role: body.role
     });
