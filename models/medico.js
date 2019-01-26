@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var medicoSchema = new Schema({
     nombre: { type: String, required: [true, 'El nombre es necesario'] },
-    img: { type: String, required: false },
+    img: { type: String, default: "1" },
     usuario: { type: Schema.Types.ObjectId, ref: 'Usuario', required: true },
     hospital: {
         type: Schema.Types.ObjectId,

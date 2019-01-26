@@ -42,6 +42,40 @@ app.get('/', (req, res, next) => {
             });
 });
 
+// ==========================================
+// Obtener 1 solo medicos
+// ==========================================
+
+app.get('/:id', (req, res) => {
+    var id = req.params.id;
+
+    Medico.findById(id)
+        .populate('usuario', 'nombre email img')
+        .populate('hospital')
+        .exec((err, medico) => {
+
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    mensaje: 'Error al buscar medico',
+                    errors: err
+                });
+            }
+
+            if (!medico) {
+                return res.status(400).json({
+                    ok: false,
+                    errors: { message: 'No existe un Medico con ese ID' }
+                });
+            }
+
+            res.status(200).json({
+                ok: false,
+                medico: medico
+            });
+
+        });
+});
 
 // ==========================================
 // Actualizar Medico
