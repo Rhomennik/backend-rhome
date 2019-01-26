@@ -5,10 +5,10 @@ var app = express();
 var Hospital = require('../models/hospital');
 var Medico = require('../models/medico');
 var Usuario = require('../models/usuario');
-
-// ==============================
-// Busqueda por colección
-// ==============================
+var Employee = require('../models/employee')
+    // ==============================
+    // Busqueda por colección
+    // ==============================
 app.get('/coleccion/:tabla/:busqueda', (req, res) => {
 
     var busqueda = req.params.busqueda;
@@ -29,6 +29,10 @@ app.get('/coleccion/:tabla/:busqueda', (req, res) => {
 
         case 'hospitales':
             promesa = buscarHospitales(busqueda, regex);
+            break;
+
+        case 'tarjetas':
+            promesa = buscarEmployee(busqueda, regex);
             break;
 
         default:
@@ -64,7 +68,8 @@ app.get('/todo/:busqueda', (req, res, next) => {
     Promise.all([
             buscarHospitales(busqueda, regex),
             buscarMedicos(busqueda, regex),
-            buscarUsuarios(busqueda, regex)
+            buscarUsuarios(busqueda, regex),
+            buscarEmployee(busqueda, regex)
         ])
         .then(respuestas => {
 
@@ -72,7 +77,8 @@ app.get('/todo/:busqueda', (req, res, next) => {
                 ok: true,
                 hospitales: respuestas[0],
                 medicos: respuestas[1],
-                usuarios: respuestas[2]
+                usuarios: respuestas[2],
+                employee: respuestas[3]
             });
         })
 
@@ -135,6 +141,28 @@ function buscarUsuarios(busqueda, regex) {
 
     });
 }
+
+function buscarEmployee(busqueda, regex) {
+
+    return new Promise((resolve, reject) => {
+
+        Employee.find({}, 'cliente codigo')
+            .or([{ 'cliente': regex }, { 'codigo': regex }])
+            .exec((err, employee) => {
+
+                if (err) {
+                    reject('Erro al cargar Tarjetas', err);
+                } else {
+                    resolve(employee);
+                }
+
+
+            })
+
+
+    });
+}
+
 
 
 
