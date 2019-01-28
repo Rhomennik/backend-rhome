@@ -183,8 +183,8 @@ function obtenerMenu(ROLE) {
             icono: 'mdi mdi-gauge',
             submenu: [
                 // aqui iremos adicionar as futuras RUTAS?
-                { titulo: 'Dashboard', url: '/dashboard' },
-                { titulo: 'Maquinas', url: '/maquinas' }
+                // { titulo: 'Dashboard', url: '/dashboard' },
+                // { titulo: 'Maquinas', url: '/maquinas' }
                 //  { titulo: 'ProgressBar', url: '/progress' },
                 //  { titulo: 'Graficas', url: '/graficas1' },
                 //  { titulo: 'Promesas', url: '/promesas' },
@@ -205,14 +205,18 @@ function obtenerMenu(ROLE) {
             icono: 'mdi mdi-folder-lock-open',
             submenu: [
                 // Role kk    { titulo: 'Usuarios', url: '/usuarios' },
-                { titulo: 'Hospitales', url: '/hospitales' },
-                { titulo: 'Medicos', url: '/medicos' }
+                // { titulo: 'Hospitales', url: '/hospitales' },
+                // { titulo: 'Medicos', url: '/medicos' }
             ]
         }
     ];
 
     if (ROLE === 'ADMIN_ROLE') {
-        menu[1].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios' })
+        menu[2].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios' }, { titulo: 'Hospitales', url: '/hospitales' }, { titulo: 'Medicos', url: '/medicos' }, { titulo: 'Maquinas', url: '/maquinas' })
+    }
+
+    if (role === 'USER_ROLE') {
+        menu[1].submenu.unshift({ titulo: 'Dashboard', url: '/dashboard' })
     }
 
 
