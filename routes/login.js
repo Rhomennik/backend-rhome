@@ -77,7 +77,8 @@ app.post('/google', async(req, res) => {
                     ok: true,
                     usuario: usuarioDB,
                     token: token,
-                    id: usuarioDB._id
+                    id: usuarioDB._id,
+                    menu: obtenerMenu(usuario.role)
                 });
 
             }
@@ -100,7 +101,8 @@ app.post('/google', async(req, res) => {
                     ok: true,
                     usuario: usuarioDB,
                     token: token,
-                    id: usuarioDB._id
+                    id: usuarioDB._id,
+                    menu: obtenerMenu(usuarioDB.role)
                 });
 
 
@@ -164,7 +166,8 @@ app.post('/', (req, res) => {
             ok: true,
             usuario: usuarioDB,
             token: token,
-            id: usuarioDB._id
+            id: usuarioDB._id,
+            menu: obtenerMenu(usuarioDB.role)
         });
 
     })
@@ -172,6 +175,50 @@ app.post('/', (req, res) => {
 
 });
 
+function obtenerMenu(ROLE) {
+
+    var menu = [{
+            // aqui podemos modificar iconos e tmb titulos do sidebar
+            titulo: 'Principal',
+            icono: 'mdi mdi-gauge',
+            submenu: [
+                // aqui iremos adicionar as futuras RUTAS?
+                { titulo: 'Dashboard', url: '/dashboard' },
+                { titulo: 'Maquinas', url: '/maquinas' }
+                //  { titulo: 'ProgressBar', url: '/progress' },
+                //  { titulo: 'Graficas', url: '/graficas1' },
+                //  { titulo: 'Promesas', url: '/promesas' },
+                //  { titulo: 'Rxjs', url: '/rxjs' },
+            ]
+        },
+        {
+            titulo: 'Puerta',
+            icono: 'mdi mdi-glassdoor',
+            submenu: [
+                // aqui iremos adicionar as futuras RUTAS?
+                { titulo: 'Tarjetas', url: '/tarjetas' },
+                { titulo: 'Entradas', url: '/entrada' }
+            ]
+        },
+        {
+            titulo: 'Mantenimientos',
+            icono: 'mdi mdi-folder-lock-open',
+            submenu: [
+                // Role kk    { titulo: 'Usuarios', url: '/usuarios' },
+                { titulo: 'Hospitales', url: '/hospitales' },
+                { titulo: 'Medicos', url: '/medicos' }
+            ]
+        }
+    ];
+
+    if (ROLE === 'ADMIN_ROLE') {
+        menu[1].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios' })
+    }
+
+
+    return menu;
+
+}
 
 
 
