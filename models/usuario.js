@@ -17,7 +17,7 @@ var usuarioSchema = new Schema({
     password: { type: String, required: [true, 'La contraseña es necesaria'] },
     img: { type: String, required: false, default: '' },
     role: { type: String, required: true, default: 'NORMAL_USER', enum: rolesValidos },
-    google: { type: Boolean, default: 'NOIMAGE' }
+    google: { type: Boolean, default: false }
 
 });
 

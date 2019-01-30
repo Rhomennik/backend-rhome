@@ -4,7 +4,7 @@
 
  var app = express();
 
- var Maquinas = require('../models/maquinas2');
+ var Maquinas = require('../models/maquinas');
  // Date atual
  var date = require('date-and-time');
 
@@ -16,7 +16,9 @@
      var desde = req.query.desde || 0;
      desde = Number(desde);
 
-     Maquinas.find({}, 'iplocal ippublico uptime   updateAt')
+     Maquinas.find({}, '')
+         .skip(desde)
+         .limit(5)
          .exec(
              (err, maquinas) => {
 
@@ -119,7 +121,7 @@
          maquinas.iplocal = body.iplocal;
          maquinas.ippublico = body.ippublico;
          maquinas.mac = body.mac;
-         maquinas.updatedAt = date.format(now, 'Hmm');
+         maquinas.updatedAt = date.format(now, 'YYYY-MM-DD HH:mm:ss');
          maquinas.img = body.img
 
          maquinas.save((err, maquinasGuardado) => {
@@ -157,7 +159,7 @@
          ippublico: body.ippublico,
          uptime: body.uptime,
          mac: body.mac,
-         img: body.img,
+         img: 1,
          updatedAt: body.updatedAt,
          mike: body.mike
              //   img: body.img,
@@ -219,6 +221,5 @@
      });
 
  });
-
 
  module.exports = app;

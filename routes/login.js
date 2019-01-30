@@ -15,6 +15,22 @@ const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(CLIENT_ID);
 
 
+var mdAutenticacion = require('../middlewares/autenticacion');
+//================================
+// Esta es la autenticacion Google
+//================================
+app.get('/renuevatoken', mdAutenticacion.verificaToken, (req, res) => {
+
+    var token = jwt.sign({ usuario: req.usuario }, SEED, { expiresIn: 14400 }); // 4 horas
+
+    return res.status(200).json({
+        ok: false,
+        token: token
+
+    });
+
+})
+
 //================================
 // Esta es la autenticacion Google
 //================================
@@ -196,8 +212,8 @@ function obtenerMenu(ROLE) {
             icono: 'mdi mdi-glassdoor',
             submenu: [
                 // aqui iremos adicionar as futuras RUTAS?
-                { titulo: 'Tarjetas', url: '/tarjetas' },
-                { titulo: 'Entradas', url: '/entrada' }
+                // { titulo: 'Tarjetas', url: '/tarjetas' },
+                // { titulo: 'Entradas', url: '/entrada' }
             ]
         },
         {
@@ -212,12 +228,14 @@ function obtenerMenu(ROLE) {
     ];
 
     if (ROLE === 'ADMIN_ROLE') {
-        menu[2].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios' }, { titulo: 'Hospitales', url: '/hospitales' }, { titulo: 'Medicos', url: '/medicos' }, { titulo: 'Maquinas', url: '/maquinas' })
+        menu[0].submenu.unshift({ titulo: 'Dashboard', url: '/dashboard' }, { titulo: 'Maquinas', url: '/maquinas' }, ),
+            menu[1].submenu.unshift({ titulo: 'Tarjetas', url: '/tarjetas' }, { titulo: 'Medicos', url: '/medicos' })
+        menu[2].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios' }, { titulo: 'Hospitales', url: '/hospitales' }, { titulo: 'Medicos', url: '/medicos' })
+    }
+    if (ROLE === 'USER_ROLE') {
+        menu[0].submenu.unshift({ titulo: 'Dashboard', url: '/dashboard' })
     }
 
-    if (role === 'USER_ROLE') {
-        menu[1].submenu.unshift({ titulo: 'Dashboard', url: '/dashboard' })
-    }
 
 
     return menu;

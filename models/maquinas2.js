@@ -20,4 +20,4 @@ const maquinas2Schema = new Schema({
 //    next()
 //  });
 
-module.exports = mongoose.model('Maquinas', maquinas2Schema);
+module.exports = mongoose.model('Maquinass', maquinas2Schema);
