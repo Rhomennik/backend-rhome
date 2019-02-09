@@ -36,6 +36,7 @@ var maquinas2Routes = require('./routes/maquinas2');
 var employeeRoutes = require('./routes/employee');
 var sucursalRoutes = require('./routes/sucursal');
 var entradaRoutes = require('./routes/entrada');
+var tarjetaRoutes = require('./routes/tarjetas');
 
 var loginRoutes = require('./routes/login');
 
@@ -61,6 +62,7 @@ mongoose.connection.openUri('mongodb://localhost:11/hospitalDB', (err, res) => {
 // Rutasa
 app.use('/usuario', usuarioRoutes);
 app.use('/tarjetas', employeeRoutes);
+app.use('/tarjeta', tarjetaRoutes);
 app.use('/entrada', entradaRoutes);
 app.use('/login', loginRoutes);
 app.use('/maquinas', maquinasRoutes);

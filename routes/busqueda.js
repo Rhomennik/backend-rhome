@@ -182,7 +182,7 @@ function buscarEmployee(busqueda, regex) {
 
     return new Promise((resolve, reject) => {
 
-        Employee.find({}, 'cliente codigo')
+        Employee.find({}, '')
             .or([{ 'cliente': regex }, { 'codigo': regex }])
             .exec((err, employee) => {
 
