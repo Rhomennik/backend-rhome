@@ -162,7 +162,7 @@ function buscarUsuarios(busqueda, regex) {
     return new Promise((resolve, reject) => {
 
         Usuario.find({}, 'nombre email role img')
-            .or([{ 'nombre': regex }, { 'email': regex }])
+            .or([{ 'nombre': regex }, { 'email': regex }, { 'role': regex }])
             .exec((err, usuarios) => {
 
                 if (err) {
