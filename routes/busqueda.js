@@ -5,10 +5,12 @@ var app = express();
 var Hospital = require('../models/hospital');
 var Medico = require('../models/medico');
 var Usuario = require('../models/usuario');
-var Employee = require('../models/employee')
-    // ==============================
-    // Busqueda por colección
-    // ==============================
+var Employee = require('../models/employee');
+var Maquinas = require('../models/maquinas');
+var Sucursals = require('../models/sucursal');
+// ==============================
+// Busqueda por colección
+// ==============================
 app.get('/coleccion/:tabla/:busqueda', (req, res) => {
 
     var busqueda = req.params.busqueda;
@@ -34,11 +36,18 @@ app.get('/coleccion/:tabla/:busqueda', (req, res) => {
         case 'tarjetas':
             promesa = buscarEmployee(busqueda, regex);
             break;
+        case 'maq':
+            promesa = buscarMaquinas(busqueda, regex);
+            break;
+        case 'sucursal':
+            promesa = buscarSucursal(busqueda, regex);
+            break;
+
 
         default:
             return res.status(400).json({
                 ok: false,
-                mensaje: 'Los tipos de busqueda sólo son: usuarios, medicos y hospitales',
+                mensaje: 'Los tipos de busqueda',
                 error: { message: 'Tipo de tabla/coleccion no válido' }
             });
 
@@ -69,7 +78,9 @@ app.get('/todo/:busqueda', (req, res, next) => {
             buscarHospitales(busqueda, regex),
             buscarMedicos(busqueda, regex),
             buscarUsuarios(busqueda, regex),
-            buscarEmployee(busqueda, regex)
+            buscarEmployee(busqueda, regex),
+            buscarMaquinas(busqueda, regex),
+            buscarSucursal(busqueda, regex)
         ])
         .then(respuestas => {
 
@@ -78,12 +89,37 @@ app.get('/todo/:busqueda', (req, res, next) => {
                 hospitales: respuestas[0],
                 medicos: respuestas[1],
                 usuarios: respuestas[2],
-                employee: respuestas[3]
+                employee: respuestas[3],
+                maquinas: respuestas[4],
+                sucursal: respuestas[5]
             });
         })
 
 
 });
+
+// ####### busquedas DE MAQUINAS
+
+function buscarMaquinas(busqueda, regex) {
+
+    return new Promise((resolve, reject) => {
+
+        Maquinas.find({}, 'uptime iplocal ippublica mac updatedAt img')
+            .or([{ 'iplocal': regex }])
+            .exec((err, maq) => {
+
+                if (err) {
+                    reject('Erro al cargar Tarjetas', err);
+                } else {
+                    resolve(maq);
+                }
+
+
+            })
+
+
+    });
+}
 
 
 function buscarHospitales(busqueda, regex) {
@@ -154,6 +190,28 @@ function buscarEmployee(busqueda, regex) {
                     reject('Erro al cargar Tarjetas', err);
                 } else {
                     resolve(employee);
+                }
+
+
+            })
+
+
+    });
+}
+
+
+function buscarSucursal(busqueda, regex) {
+
+    return new Promise((resolve, reject) => {
+
+        Sucursals.find({}, '')
+            .or([{ 'nombre': regex }, { 'vpn': regex }])
+            .exec((err, Sucursals) => {
+
+                if (err) {
+                    reject('Erro al cargar Sucursal', err);
+                } else {
+                    resolve(Sucursals);
                 }
 
 

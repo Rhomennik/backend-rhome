@@ -9,7 +9,7 @@ var app = express();
 var Usuario = require('../models/usuario');
 var Medico = require('../models/medico');
 var Hospital = require('../models/hospital');
-var maquinas = require('../models/maquinas2');
+var Maquinas = require('../models/maquinas');
 
 
 // default options
@@ -134,18 +134,18 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
         });
 
     }
-// ========================================
+    // ========================================
     // linux ScreenSHot
 
     if (tipo === 'maquinas') {
 
-        maquinas.findById(id, (err, maquina) => {
+        Maquinas.findById(id, (err, maquina) => {
 
             if (!maquina) {
                 return res.status(400).json({
                     ok: true,
-                    mensaje: 'Usuario no existe',
-                    errors: { message: 'Usuario no existe' }
+                    mensaje: 'Maquina no existe',
+                    errors: { message: 'Maquina no existe' }
                 });
             }
 
@@ -174,9 +174,9 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
         });
 
     }
-// fim do linux
+    // fim do linux
 
-//====================================
+    //====================================
     if (tipo === 'medicos') {
 
         Medico.findById(id, (err, medico) => {

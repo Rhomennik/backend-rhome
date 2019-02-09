@@ -228,9 +228,9 @@ function obtenerMenu(ROLE) {
     ];
 
     if (ROLE === 'ADMIN_ROLE') {
-        menu[0].submenu.unshift({ titulo: 'Dashboard', url: '/dashboard' }, { titulo: 'Maquinas', url: '/maquinas' }, ),
+        menu[0].submenu.unshift({ titulo: 'Dashboard', url: '/dashboard' }, { titulo: 'Maquinas', url: '/maquinas' }),
             menu[1].submenu.unshift({ titulo: 'Tarjetas', url: '/tarjetas' }, { titulo: 'Medicos', url: '/medicos' })
-        menu[2].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios' }, { titulo: 'Hospitales', url: '/hospitales' }, { titulo: 'Medicos', url: '/medicos' })
+        menu[2].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios' }, { titulo: 'Sucursal', url: '/sucursal' })
     }
     if (ROLE === 'USER_ROLE') {
         menu[0].submenu.unshift({ titulo: 'Dashboard', url: '/dashboard' })

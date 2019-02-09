@@ -34,6 +34,7 @@ var uploadRoutes = require('./routes/upload');
 var imagenesRoutes = require('./routes/imagenes');
 var maquinas2Routes = require('./routes/maquinas2');
 var employeeRoutes = require('./routes/employee');
+var sucursalRoutes = require('./routes/sucursal');
 var entradaRoutes = require('./routes/entrada');
 
 var loginRoutes = require('./routes/login');
@@ -63,6 +64,7 @@ app.use('/tarjetas', employeeRoutes);
 app.use('/entrada', entradaRoutes);
 app.use('/login', loginRoutes);
 app.use('/maquinas', maquinasRoutes);
+app.use('/sucursal', sucursalRoutes);
 app.use('/maquinas2', maquinas2Routes);
 app.use('/hospital', hospitalRoutes);
 app.use('/medico', medicoRoutes);

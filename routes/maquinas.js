@@ -19,6 +19,7 @@
      Maquinas.find({}, '')
          .skip(desde)
          .limit(5)
+         .populate('sucursals')
          .exec(
              (err, maquinas) => {
 
@@ -51,14 +52,16 @@
  // ==========================================
  // Obtener las maquinas por MAC
  // ==========================================
- app.get('/:macb', (req, res, next) => {
+ app.get('/:mac', (req, res, next) => {
 
      var macb = req.params.mac;
      var desde = req.query.desde || 0;
      desde = Number(desde);
 
      Maquinas.find({ mac: macb }, 'iplocal ippublico uptime mac updatedAt')
+         .skip(desde)
          .limit(5)
+         .populate('Sucursals')
          .exec(
              (err, maquinas) => {
 
@@ -122,7 +125,7 @@
          maquinas.ippublico = body.ippublico;
          maquinas.mac = body.mac;
          maquinas.updatedAt = date.format(now, 'YYYY-MM-DD HH:mm:ss');
-         maquinas.img = body.img
+         maquinas.sucursals = body.sucursals;
 
          maquinas.save((err, maquinasGuardado) => {
 
@@ -161,7 +164,7 @@
          mac: body.mac,
          img: 1,
          updatedAt: body.updatedAt,
-         mike: body.mike
+         sucursals: body.sucursals
              //   img: body.img,
              //   role: body.role
      });

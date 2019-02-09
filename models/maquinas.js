@@ -7,7 +7,12 @@ const maquinas2Schema = new Schema({
     ippublico: { type: String },
     uptime: { type: String },
     mac: { type: String, unique: true },
-    img: { type: String, required: false, default: '' },
+    img: { type: String, required: false },
+    sucursals: {
+        type: Schema.Types.String,
+        ref: 'Sucursal',
+        required: [true, 'El id hospital esun campo obligatorio ']
+    },
     updatedAt: { type: String, default: date.format(now, 'YYYY-MM-DD HH:mm:ss') }
     //   ultimo: {type: Date, default: Date.()}
 
