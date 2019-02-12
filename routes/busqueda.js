@@ -5,7 +5,7 @@ var app = express();
 var Hospital = require('../models/hospital');
 var Medico = require('../models/medico');
 var Usuario = require('../models/usuario');
-var Employee = require('../models/employee');
+var Tarjeta = require('../models/tarjeta');
 var Maquinas = require('../models/maquinas');
 var Sucursals = require('../models/sucursal');
 // ==============================
@@ -34,7 +34,7 @@ app.get('/coleccion/:tabla/:busqueda', (req, res) => {
             break;
 
         case 'tarjetas':
-            promesa = buscarEmployee(busqueda, regex);
+            promesa = buscarTarjeta(busqueda, regex);
             break;
         case 'maq':
             promesa = buscarMaquinas(busqueda, regex);
@@ -78,7 +78,7 @@ app.get('/todo/:busqueda', (req, res, next) => {
             buscarHospitales(busqueda, regex),
             buscarMedicos(busqueda, regex),
             buscarUsuarios(busqueda, regex),
-            buscarEmployee(busqueda, regex),
+            buscarTarjeta(busqueda, regex),
             buscarMaquinas(busqueda, regex),
             buscarSucursal(busqueda, regex)
         ])
@@ -89,7 +89,7 @@ app.get('/todo/:busqueda', (req, res, next) => {
                 hospitales: respuestas[0],
                 medicos: respuestas[1],
                 usuarios: respuestas[2],
-                employee: respuestas[3],
+                tarjeta: respuestas[3],
                 maquinas: respuestas[4],
                 sucursal: respuestas[5]
             });
@@ -104,7 +104,7 @@ function buscarMaquinas(busqueda, regex) {
 
     return new Promise((resolve, reject) => {
 
-        Maquinas.find({}, 'uptime iplocal ippublica mac updatedAt img')
+        Maquinas.find({}, '')
             .or([{ 'iplocal': regex }])
             .exec((err, maq) => {
 
@@ -178,18 +178,18 @@ function buscarUsuarios(busqueda, regex) {
     });
 }
 
-function buscarEmployee(busqueda, regex) {
+function buscarTarjeta(busqueda, regex) {
 
     return new Promise((resolve, reject) => {
 
-        Employee.find({}, '')
+        Tarjeta.find({}, '')
             .or([{ 'cliente': regex }, { 'codigo': regex }])
-            .exec((err, employee) => {
+            .exec((err, tarjeta) => {
 
                 if (err) {
                     reject('Erro al cargar Tarjetas', err);
                 } else {
-                    resolve(employee);
+                    resolve(tarjeta);
                 }
 
 

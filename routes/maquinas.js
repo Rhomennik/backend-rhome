@@ -125,7 +125,6 @@
          maquinas.ippublico = body.ippublico;
          maquinas.mac = body.mac;
          maquinas.updatedAt = date.format(now, 'YYYY-MM-DD HH:mm:ss');
-         maquinas.sucursals = body.sucursals;
 
          maquinas.save((err, maquinasGuardado) => {
 

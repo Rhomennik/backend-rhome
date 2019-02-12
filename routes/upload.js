@@ -160,7 +160,7 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
 
             maquina.save((err, maquinaActualizado) => {
 
-                maquinaActualizado.password = ':)';
+
 
                 return res.status(200).json({
                     ok: true,

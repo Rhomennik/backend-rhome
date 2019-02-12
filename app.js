@@ -2,6 +2,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+mongoose.set('useFindAndModify', false);
 
 // Inicializar variables
 var app = express();
@@ -33,7 +34,6 @@ var busquedaRoutes = require('./routes/busqueda');
 var uploadRoutes = require('./routes/upload');
 var imagenesRoutes = require('./routes/imagenes');
 var maquinas2Routes = require('./routes/maquinas2');
-var employeeRoutes = require('./routes/employee');
 var sucursalRoutes = require('./routes/sucursal');
 var entradaRoutes = require('./routes/entrada');
 var tarjetaRoutes = require('./routes/tarjetas');
@@ -44,7 +44,7 @@ var loginRoutes = require('./routes/login');
 
 
 // Conexión a la base de datos
-mongoose.connection.openUri('mongodb://localhost:11/hospitalDB', (err, res) => {
+mongoose.connection.openUri('mongodb://localhost:11/hospitalDB', { useNewUrlParser: true }, (err, res) => {
 
     if (err) throw err;
 
@@ -61,7 +61,6 @@ mongoose.connection.openUri('mongodb://localhost:11/hospitalDB', (err, res) => {
 
 // Rutasa
 app.use('/usuario', usuarioRoutes);
-app.use('/tarjetas', employeeRoutes);
 app.use('/tarjeta', tarjetaRoutes);
 app.use('/entrada', entradaRoutes);
 app.use('/login', loginRoutes);
