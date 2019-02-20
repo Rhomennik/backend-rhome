@@ -9,6 +9,7 @@ const maquinas2Schema = new Schema({
     uptime: { type: String },
     mac: { type: String, unique: true, required: true },
     img: { type: String, required: false },
+    anydesk: { type: String },
     sucursals: {
         type: Schema.Types.String,
         ref: 'Sucursal',

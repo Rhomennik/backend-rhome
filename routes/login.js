@@ -21,7 +21,7 @@ var mdAutenticacion = require('../middlewares/autenticacion');
 //================================
 app.get('/renuevatoken', mdAutenticacion.verificaToken, (req, res) => {
 
-    var token = jwt.sign({ usuario: req.usuario }, SEED, { expiresIn: 14400 }); // 4 horas
+    var token = jwt.sign({ usuario: req.usuario }, SEED, {}); // 4 horas
 
     return res.status(200).json({
         ok: false,
@@ -111,7 +111,7 @@ app.post('/google', async(req, res) => {
 
             usuario.save((_err, usuarioDB) => {
 
-                var token = jwt.sign({ usuario: usuarioDB }, SEED, { expiresIn: 14400 }); // 4 horas
+                var token = jwt.sign({ usuario: usuarioDB }, SEED, {}); // 4 horas var token = jwt.sign({ usuario: usuarioDB }, SEED, { expiresIn: 14400 });
 
                 res.status(200).json({
                     ok: true,
@@ -176,7 +176,7 @@ app.post('/', (req, res) => {
         // Crear un token!!!
         usuarioDB.password = ':)';
 
-        var token = jwt.sign({ usuario: usuarioDB }, SEED, { expiresIn: 14400 }); // 4 horas
+        var token = jwt.sign({ usuario: usuarioDB }, SEED, {}); // 4 horas
 
         res.status(200).json({
             ok: true,

@@ -31,7 +31,7 @@
                      });
                  }
 
-                 Maquinas.count({}, (err, conteo) => {
+                 Maquinas.countDocuments({}, (err, conteo) => {
 
                      res.status(200).json({
                          ok: true,
@@ -124,6 +124,7 @@
          maquinas.iplocal = body.iplocal;
          maquinas.ippublico = body.ippublico;
          maquinas.mac = body.mac;
+         maquinas.anydesk = body.anydesk;
          maquinas.updatedAt = date.format(now, 'YYYY-MM-DD HH:mm:ss');
 
          maquinas.save((err, maquinasGuardado) => {
@@ -163,7 +164,8 @@
          mac: body.mac,
          img: 1,
          updatedAt: body.updatedAt,
-         sucursals: body.sucursals
+         sucursals: body.sucursals,
+         anydesk: body.anydesk
              //   img: body.img,
              //   role: body.role
      });
