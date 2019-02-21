@@ -14,9 +14,9 @@ module.exports = app;
 // ==========================================
 // Obtener todos los sucursal
 // ===========================id===============
-app.get('/', (req, res, next) => {
+app.get('/:desde/', [mdAutenticacion.verificaToken], (req, res, next) => {
 
-    var desde = req.query.desde || 0;
+    var desde = req.params.desde || 0;
     desde = Number(desde);
 
     Sucursal.find({}, '')

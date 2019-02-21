@@ -14,9 +14,7 @@ exports.verificaToken = function(req, res, next) {
 
         if (err) {
             return res.status(401).json({
-                ok: false,
-                mensaje: 'Token incorrecto',
-                errors: err
+                mensaje: 'Send you info to DB blacklist -----tk incorrect------'
             });
         }
 

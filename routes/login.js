@@ -16,20 +16,7 @@ const client = new OAuth2Client(CLIENT_ID);
 
 
 var mdAutenticacion = require('../middlewares/autenticacion');
-//================================
-// Esta es la autenticacion Google
-//================================
-app.get('/renuevatoken', mdAutenticacion.verificaToken, (req, res) => {
 
-    var token = jwt.sign({ usuario: req.usuario }, SEED, {}); // 4 horas
-
-    return res.status(200).json({
-        ok: false,
-        token: token
-
-    });
-
-})
 
 //================================
 // Esta es la autenticacion Google
@@ -82,7 +69,7 @@ app.post('/google', async(req, res) => {
             if (usuarioDB.google === false) {
                 return res.status(400).json({
                     ok: false,
-                    mensaje: 'DEbe de usar su autenticacion normal'
+                    mensaje: 'Debe de usar su autenticacion normal'
                 });
 
             } else {
@@ -94,7 +81,7 @@ app.post('/google', async(req, res) => {
                     usuario: usuarioDB,
                     token: token,
                     id: usuarioDB._id,
-                    menu: obtenerMenu(usuario.role)
+                    menu: obtenerMenu(usuarioDB.role)
                 });
 
             }

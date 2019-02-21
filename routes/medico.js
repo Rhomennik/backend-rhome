@@ -9,9 +9,9 @@ var Medico = require('../models/medico');
 // ==========================================
 // Obtener todos los medicos
 // ==========================================
-app.get('/', (req, res, next) => {
+app.get('/:desde/', [mdAutenticacion.verificaToken], (req, res, next) => {
 
-    var desde = req.query.desde || 0;
+    var desde = req.params.desde || 0;
     desde = Number(desde);
 
     Medico.find({})
