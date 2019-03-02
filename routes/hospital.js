@@ -40,7 +40,7 @@ app.get('/:id', (req, res) => {
 // ==========================================
 // Obtener todos los hospitales
 // ==========================================
-app.get('/:desde/', [mdAutenticacion.verificaToken], (req, res, next) => {
+app.get('/', (req, res, next) => {
 
     var desde = req.params.desde || 0;
     desde = Number(desde);

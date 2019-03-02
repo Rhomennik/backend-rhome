@@ -80,7 +80,7 @@ app.get('/:id', (req, res) => {
 // ==========================================
 // Actualizar Medico
 // ==========================================
-app.put('/:id', mdAutenticacion.verificaToken, (req, res) => {
+app.put('/:id', (req, res) => {
 
     var id = req.params.id;
     var body = req.body;

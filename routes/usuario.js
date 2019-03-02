@@ -50,7 +50,7 @@ app.get('/:desde/', [mdAutenticacion.verificaToken], (req, res, next) => {
 // ==========================================
 // Actualizar usuario
 // ==========================================
-app.put('/:id', [mdAutenticacion.verificaToken, mdAutenticacion.verificaADMIN_ROLE_o_mismousuario], (req, res) => {
+app.put('/:id', [mdAutenticacion.verificaToken], (req, res) => {
 
     var id = req.params.id;
     var body = req.body;
@@ -77,7 +77,6 @@ app.put('/:id', [mdAutenticacion.verificaToken, mdAutenticacion.verificaADMIN_RO
 
         usuario.nombre = body.nombre;
         usuario.email = body.email;
-        usuario.role = body.role;
 
         usuario.save((err, usuarioGuardado) => {
 
