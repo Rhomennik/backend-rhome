@@ -46,7 +46,7 @@ app.get('/:desde/', [mdAutenticacion.verificaToken], (req, res, next) => {
 // Obtener 1 solo medicos
 // ==========================================
 
-app.get('/:id', (req, res) => {
+app.get('/id/:id', (req, res) => {
     var id = req.params.id;
 
     Medico.findById(id)

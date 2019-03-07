@@ -40,15 +40,14 @@ app.get('/:id', (req, res) => {
 // ==========================================
 // Obtener todos los departamentoses
 // ==========================================
-app.get('/', (req, res, next) => {
+app.get('/desde/:desde/', (req, res, next) => {
 
     var desde = req.params.desde || 0;
     desde = Number(desde);
 
     Departamentos.find({})
         .skip(desde)
-        .limit(5)
-        .populate('usuario', 'nombre email')
+        .limit(20)
         .exec(
             (err, departamentoses) => {
 

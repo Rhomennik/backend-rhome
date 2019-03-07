@@ -8,7 +8,11 @@ var sucursalSchema = new Schema({
     lat: { type: String },
     telefono: { type: Number },
     ippublico: { type: String },
-    vpn: { type: String }
+    vpn: { type: String },
+    departamentos: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Departamentos'
+    }]
 });
 
 module.exports = mongoose.model('Sucursal', sucursalSchema);

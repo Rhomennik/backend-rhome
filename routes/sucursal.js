@@ -12,18 +12,19 @@ var date = require('date-and-time');
 module.exports = app;
 
 // ==========================================
-// Obtener todos los sucursal
-// ===========================id===============
+// Obtener todos los sucursals
+// ==========================================
 app.get('/:desde/', (req, res, next) => {
 
     var desde = req.params.desde || 0;
     desde = Number(desde);
 
-    Sucursal.find({}, '')
+    Sucursal.find({})
         .skip(desde)
         .limit(5)
+        .populate('departamentos')
         .exec(
-            (err, sucursal) => {
+            (err, sucursals) => {
 
                 if (err) {
                     return res.status(500).json({
@@ -34,73 +35,25 @@ app.get('/:desde/', (req, res, next) => {
                 }
 
                 Sucursal.count({}, (err, conteo) => {
-
                     res.status(200).json({
-                        ok: true,
-                        sucursal: sucursal,
+                        ok: [true, 'desde'],
+                        sucursals: sucursals,
                         total: conteo
                     });
 
                 })
 
-
-
-
-
             });
 });
 
-
-
 // ==========================================
-// Obtener las sucursal por telefone
+// Obtener sucursal por ID
 // ==========================================
-app.get('/:id', (req, res, next) => {
-
+app.get('/id/:id', (req, res) => {
     var id = req.params.id;
-    var desde = req.query.desde || 0;
-    desde = Number(desde);
-
     Sucursal.findById(id)
-        .exec(
-            (err, sucursal) => {
-
-                if (err) {
-                    return res.status(500).json({
-                        ok: false,
-                        mensaje: 'Error cargando sucursal',
-                        errors: err
-                    });
-                }
-
-                Sucursal.count({}, (err, conteo) => {
-
-                    res.status(200).json({
-                        ok: true,
-                        sucursal: sucursal,
-                        total: conteo
-                    });
-
-                })
-
-
-
-
-            });
-});
-
-
-// ==========================================
-// Obtener sucursa
-// ==========================================
-
-app.get('/:id', (req, res) => {
-
-    var id = req.params.id;
-
-    Sucursals.findById(id)
+        .populate('usuario', 'nombre img email')
         .exec((err, sucursal) => {
-
             if (err) {
                 return res.status(500).json({
                     ok: false,
@@ -108,23 +61,18 @@ app.get('/:id', (req, res) => {
                     errors: err
                 });
             }
-
             if (!sucursal) {
                 return res.status(400).json({
                     ok: false,
-                    mensaje: 'El sucursal con el id ' + id + ' no existe',
+                    mensaje: 'El sucursal con el id ' + id + 'no existe',
                     errors: { message: 'No existe un sucursal con ese ID' }
                 });
             }
-
-            return res.status(200).json({
+            res.status(200).json({
                 ok: true,
                 sucursal: sucursal
             });
-
-
         })
-
 })
 
 // ==========================================
@@ -142,7 +90,7 @@ app.put('/:id', (req, res) => {
 
         if (err) {
             return res.status(500).json({
-                ok: false,
+                ok: [true, 'desde Actualizar Sucursal'],
                 mensaje: 'Error al buscar sucursal',
                 errors: err
             });
@@ -163,6 +111,7 @@ app.put('/:id', (req, res) => {
         sucursal.telefono = body.telefono;
         sucursal.vpn = body.vpn;
         sucursal.ippublico = body.ippublico;
+        sucursal.sucursal = body.sucursal;
 
         sucursal.save((err, sucursalGuardado) => {
 
@@ -200,7 +149,8 @@ app.post('/', (req, res) => {
         lat: body.lat,
         telefono: body.telefono,
         vpn: body.vpn,
-        ippublico: body.ippublico
+        ippublico: body.ippublico,
+        departamentos: body.departamentos
     });
 
     sucursal.save((err, sucursalGuardado) => {
