@@ -27,7 +27,7 @@ app.use(bodyParser.json())
 // Importar rutas
 var appRoutes = require('./routes/app');
 var maquinasRoutes = require('./routes/maquinas');
-var testeRoutes = require('./routes/teste');
+var RadioRoutes = require('./routes/radio');
 var usuarioRoutes = require('./routes/usuario');
 var loginRoutes = require('./routes/login');
 var hospitalRoutes = require('./routes/hospital');
@@ -39,6 +39,8 @@ var maquinas2Routes = require('./routes/maquinas2');
 var sucursalRoutes = require('./routes/sucursal');
 var entradaRoutes = require('./routes/entrada');
 var tarjetaRoutes = require('./routes/tarjetas');
+var cardRoutes = require('./routes/card');
+var departamentosRoutes = require('./routes/departamentos');
 
 
 var loginRoutes = require('./routes/login');
@@ -63,7 +65,9 @@ mongoose.connection.openUri('mongodb://localhost:11/hospitalDB', { useNewUrlPars
 
 
 // Rutasa
-app.use('/teste', testeRoutes);
+app.use('/departamentos', departamentosRoutes);
+app.use('/radio', RadioRoutes);
+app.use('/card', cardRoutes);
 app.use('/usuario', usuarioRoutes);
 app.use('/tarjeta', tarjetaRoutes);
 app.use('/entrada', entradaRoutes);
