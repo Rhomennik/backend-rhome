@@ -111,7 +111,7 @@ app.put('/:id', (req, res) => {
         sucursal.telefono = body.telefono;
         sucursal.vpn = body.vpn;
         sucursal.ippublico = body.ippublico;
-        sucursal.sucursal = body.sucursal;
+        sucursal.departamentos = body.departamentos;
 
         sucursal.save((err, sucursalGuardado) => {
 

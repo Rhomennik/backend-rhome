@@ -9,10 +9,10 @@ var sucursalSchema = new Schema({
     telefono: { type: Number },
     ippublico: { type: String },
     vpn: { type: String },
-    departamentos: [{
+    departamentos: {
         type: Schema.Types.ObjectId,
         ref: 'Departamentos'
-    }]
+    }
 });
 
 module.exports = mongoose.model('Sucursal', sucursalSchema);
