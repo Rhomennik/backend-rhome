@@ -47,7 +47,7 @@ app.get('/desde/:desde/', (req, res, next) => {
 
     Player.find({})
         .skip(desde)
-        .limit(20)
+        .limit(8)
         .exec(
             (err, player) => {
 

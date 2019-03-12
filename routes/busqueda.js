@@ -8,6 +8,7 @@ var Usuario = require('../models/usuario');
 var Tarjeta = require('../models/tarjeta');
 var Maquinas = require('../models/maquinas');
 var Sucursals = require('../models/sucursal');
+var Players = require('../models/player');
 // ==============================
 // Busqueda por colección
 // ==============================
@@ -23,6 +24,10 @@ app.get('/coleccion/:tabla/:busqueda', (req, res) => {
 
         case 'usuarios':
             promesa = buscarUsuarios(busqueda, regex);
+            break;
+
+        case 'player':
+            promesa = buscarPlayer(busqueda, regex);
             break;
 
         case 'medicos':
@@ -42,6 +47,7 @@ app.get('/coleccion/:tabla/:busqueda', (req, res) => {
         case 'sucursal':
             promesa = buscarSucursal(busqueda, regex);
             break;
+
 
 
         default:
@@ -80,7 +86,8 @@ app.get('/todo/:busqueda', (req, res, next) => {
             buscarUsuarios(busqueda, regex),
             buscarTarjeta(busqueda, regex),
             buscarMaquinas(busqueda, regex),
-            buscarSucursal(busqueda, regex)
+            buscarSucursal(busqueda, regex),
+            buscarPlayer(busqueda, regex)
         ])
         .then(respuestas => {
 
@@ -91,12 +98,38 @@ app.get('/todo/:busqueda', (req, res, next) => {
                 usuarios: respuestas[2],
                 tarjeta: respuestas[3],
                 maquinas: respuestas[4],
-                sucursal: respuestas[5]
+                sucursal: respuestas[5],
+                player: respuestas[6]
             });
         })
 
 
 });
+
+// ####### busquedas DE Player
+
+function buscarPlayer(busqueda, regex) {
+
+    return new Promise((resolve, reject) => {
+
+        Players.find({}, '')
+            .or([{ 'nombre': regex }, { 'url': regex }])
+            .exec((err, maq) => {
+
+                if (err) {
+                    reject('Erro al buscar Player', err);
+                } else {
+                    resolve(maq);
+                }
+
+
+            })
+
+
+    });
+}
+
+
 
 // ####### busquedas DE MAQUINAS
 
