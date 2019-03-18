@@ -23,6 +23,7 @@ app.get('/:desde/', (req, res, next) => {
         .skip(desde)
         .limit(5)
         .populate('departamentos')
+        .populate('player')
         .exec(
             (err, sucursals) => {
 
@@ -112,6 +113,7 @@ app.put('/:id', (req, res) => {
         sucursal.vpn = body.vpn;
         sucursal.ippublico = body.ippublico;
         sucursal.departamentos = body.departamentos;
+        sucursal.unico = body.departamentos;
 
         sucursal.save((err, sucursalGuardado) => {
 
@@ -150,7 +152,8 @@ app.post('/', (req, res) => {
         telefono: body.telefono,
         vpn: body.vpn,
         ippublico: body.ippublico,
-        departamentos: body.departamentos
+        departamentos: body.departamentos,
+        unico: body.departamentos
     });
 
     sucursal.save((err, sucursalGuardado) => {

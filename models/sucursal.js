@@ -9,9 +9,11 @@ var sucursalSchema = new Schema({
     telefono: { type: Number },
     ippublico: { type: String },
     vpn: { type: String },
+    unico: { type: String },
     departamentos: {
         type: Schema.Types.ObjectId,
-        ref: 'Departamentos'
+        ref: 'Departamentos',
+        player: { type: Schema.Types.ObjectId, ref: 'Player' }
     }
 });
 

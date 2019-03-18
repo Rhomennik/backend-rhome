@@ -48,6 +48,7 @@ app.get('/desde/:desde/', (req, res, next) => {
     Departamentos.find({})
         .skip(desde)
         .limit(20)
+        .populate('player')
         .exec(
             (err, departamentoses) => {
 
@@ -100,8 +101,9 @@ app.put('/:id', (req, res) => {
         }
 
 
-        departamentos.nombre = body.nombre;
-        departamentos.usuario = req.usuario._id;
+        //    departamentos.nombre = body.nombre;
+        //    departamentos.numero = req.numero;
+        departamentos.player = body.player;
 
         departamentos.save((err, departamentosGuardado) => {
 
@@ -136,7 +138,8 @@ app.post('/', (req, res) => {
     var departamentos = new Departamentos({
         nombre: body.nombre,
         numero: body.numero,
-        sucursal: body.sucursal
+        player: body.player
+
     });
 
     departamentos.save((err, departamentosGuardado) => {

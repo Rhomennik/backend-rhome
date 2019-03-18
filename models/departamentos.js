@@ -3,9 +3,9 @@ var Schema = mongoose.Schema;
 
 
 var departamentosSchema = new Schema({
-    nombre: { type: String, required: [true, 'El nombre es necesario'], unique: true },
+    nombre: { type: String, unique: true },
     numero: { type: Number },
-    sucursal: { type: Schema.Types.ObjectId, ref: 'sucursals' }
+    player: { type: Schema.Types.ObjectId, ref: 'Player' }
 });
 
 module.exports = mongoose.model('Departamentos', departamentosSchema);
