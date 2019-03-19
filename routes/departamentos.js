@@ -76,9 +76,10 @@ app.get('/desde/:desde/', (req, res, next) => {
 // ==========================================
 // Actualizar Departamentos
 // ==========================================
-app.put('/:id', (req, res) => {
+app.put('/:id/:ads/', (req, res) => {
 
     var id = req.params.id;
+    var procurando = req.params.ads;
     var body = req.body;
 
     Departamentos.findById(id, (err, departamentos) => {
@@ -87,7 +88,7 @@ app.put('/:id', (req, res) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
-                mensaje: 'Error al buscar departamentos',
+                mensaje: 'Error al Actualizar departamentos',
                 errors: err
             });
         }
@@ -103,7 +104,9 @@ app.put('/:id', (req, res) => {
 
         //    departamentos.nombre = body.nombre;
         //    departamentos.numero = req.numero;
-        departamentos.player = body.player;
+
+        // Aqui puchamos o "var procurando = req.params.ads;"  entao Colocamos o id do player na url dps do id do dep, que tem que ser Atualizado!
+        departamentos.player = procurando;
 
         departamentos.save((err, departamentosGuardado) => {
 
